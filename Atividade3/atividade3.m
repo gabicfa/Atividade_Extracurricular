@@ -1,4 +1,4 @@
-%Atividade 3 - Iniciação cientifica
+%Atividade 3 - Inicia??o cientifica
 
 function saida = atividade2(x0,y0,z0,vx0,vy0,vz0,tf);
     close all;
@@ -12,16 +12,16 @@ function saida = atividade2(x0,y0,z0,vx0,vy0,vz0,tf);
     [t, Xc] = ode45( @simula_corrigido, [0 tf], [x0 y0 z0 vx0 vy0 vz0], options);
     [lonc,latc,rc] = cart2sph(Xc(:,1),Xc(:,2),Xc(:,3));
     
-    %Figura para a posiçao X(t) X Y(t) X Z(t)
+    %Figura para a posi?ao X(t) X Y(t) X Z(t)
     
     figure(1);
     plot3( X(:,1),X(:,2),X(:,3), 'r');
     grid on;
     
-    title('Órbita - integração numérica');
-    xlabel('Posição em X [km]');
-    ylabel('Posição em Y [km]');
-    zlabel('Posição em Z [km]');
+    title('?rbita - integra??o num?rica');
+    xlabel('Posi??o em X [km]');
+    ylabel('Posi??o em Y [km]');
+    zlabel('Posi??o em Z [km]');
     
     figure(2);
     geoshow('landareas.shp', 'FaceColor', [0.8 1 0.8]);
@@ -33,10 +33,10 @@ function saida = atividade2(x0,y0,z0,vx0,vy0,vz0,tf);
     plot3( Xc(:,1),Xc(:,2),Xc(:,3), 'r');
     grid on;
     
-    title('Órbita corrigida - integração numérica');
-    xlabel('Posição em X [km]');
-    ylabel('Posição em Y [km]');
-    zlabel('Posição em Z [km]');    
+    title('?rbita corrigida - integra??o num?rica');
+    xlabel('Posi??o em X [km]');
+    ylabel('Posi??o em Y [km]');
+    zlabel('Posi??o em Z [km]');    
     
     figure(4);
     geoshow('landareas.shp', 'FaceColor', [0.8 1 0.8]);
@@ -72,12 +72,12 @@ function X_ponto = simula_corrigido(t,X);
     
     r = sqrt(X(1)^2 + X(2)^2 + X(3)^2);
     
-    X_ponto(1) = X(4) + w*X(2);
-    X_ponto(2) = X(5) - w*X(1);
+    X_ponto(1) = X(4);
+    X_ponto(2) = X(5);
     X_ponto(3) = X(6);
     
-    X_ponto(4) = (-u*X(1))/((Rt + r)^3);
-    X_ponto(5) = (-u*X(2))/((Rt + r)^3);
+    X_ponto(4) = (-u*X(1))/((Rt + r)^3)+ w^2*X(1)+2*w*X(5);
+    X_ponto(5) = (-u*X(2))/((Rt + r)^3)+ w^2*X(2)-2*w*X(4);
     X_ponto(6) = (-u*X(3))/((Rt + r)^3);
     
 end

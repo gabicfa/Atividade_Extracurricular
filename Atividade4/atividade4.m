@@ -1,4 +1,4 @@
-function atividade4();
+function atividade4()
 
     ut = 3.9860040*10^5;
     hora = 2;
@@ -70,15 +70,15 @@ function atividade4();
     
     options = odeset('Abstol', [1e-6 1e-6 1e-6 1e-6 1e-6 1e-6], 'Reltol', 1e-6); 
     
-    [tempo,valores_saida] = ode45( @odefun,[t0 tf],[Pos_0(1) Pos_0(2) Pos_0(3) V_0(1) V_0(2) V_0(3)],options);
-    [lon,lat,r] = cart2sph(valores_saida(:,1),valores_saida(:,2),valores_saida(:,3));
+    [~,valores_saida] = ode45( @odefun,[t0 tf],[Pos_0(1) Pos_0(2) Pos_0(3) V_0(1) V_0(2) V_0(3)],options);
+    [lon,lat,~] = cart2sph(valores_saida(:,1),valores_saida(:,2),valores_saida(:,3));
     
     figure(1);
     plot3(valores_saida(:,1),valores_saida(:,2),valores_saida(:,3),'r');
     title('Movimento do corpo');
-    xlabel('Posição em x [km]');
-    ylabel('Posição em y [km]');
-    zlabel('Posição em z [km]');
+    xlabel('Posicao em x [km]');
+    ylabel('Posicao em y [km]');
+    zlabel('Posicao em z [km]');
     grid on;
     axis([-2 2 -2 2 -1 1]*10^4);
     
@@ -98,16 +98,14 @@ function [G] = odefun(~,I)
     
     w = 7.29*10^-5;
     ut = 3.9860040*(10^5);
-    altitude = 3000;
-    Rt = 6378;
     r = sqrt(I(1)^2 + I(2)^2 + I(3)^2);
     
-    G(1) = I(4) + w*I(2);
-    G(2) = I(5) - w*I(1);
+    G(1) = I(4);
+    G(2) = I(5);
     G(3) = I(6);
     
-    G(4) = -ut*I(1)/(r^3);
-    G(5) = -ut*I(2)/(r^3);
+    G(4) = -ut*I(1)/(r^3)+(w^2)*I(1)+2*w*I(5);
+    G(5) = -ut*I(2)/(r^3)+(w^2)*I(2)-2*w*I(4);
     G(6) = -ut*I(3)/(r^3);
 
 end
