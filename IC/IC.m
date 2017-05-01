@@ -435,38 +435,6 @@ function[Delta_JD] = juliano(T, D, t, d)
 
     Delta_JD = (JD2 - JD1)*86400;
 
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 function pertub_Callback(hObject, eventdata, handles)
 global pertubacao;
 if (get(hObject,'Value') == get(hObject,'Max'))
