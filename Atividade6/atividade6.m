@@ -1,4 +1,4 @@
-function atividade6(R, V)
+ function atividade6(R, V)
 
 r = norm(R);
 v = norm(V);
