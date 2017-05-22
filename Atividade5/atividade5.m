@@ -19,9 +19,10 @@ function atividade5()
     w = w*pi/180;
 
     T = (hora + (min/60) + (seg/3600))*3600;
+
     n = sqrt(ut/a^3);
     M = n*T;
-
+    
     E0 = 0;
     iter = 0;
     itermax = 100;
@@ -83,7 +84,7 @@ function atividade5()
     
     [~,valores_saida] = ode45(@odefun,[t0 tf],Iniciais,options);
     [lon,lat,~] = cart2sph(valores_saida(:,1),valores_saida(:,2),valores_saida(:,3));
-    
+    display(valores_saida(size(valores_saida,1),:));
     figure(1);
     plot3(valores_saida(:,1),valores_saida(:,2),valores_saida(:,3),'r');
     title('Movimento do corpo');

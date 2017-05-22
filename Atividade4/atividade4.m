@@ -1,4 +1,4 @@
-function atividade4()
+function [Pos_0, V_0] = atividade4()
 
     ut = 3.9860040*10^5;
     hora = 2;
@@ -7,7 +7,7 @@ function atividade4()
     altitude = 3000;
     Rt = 6378;
 
-    a = Rt + altitude;
+    a = Rt+altitude;
     e = 0.1;
     
     i = 30;
@@ -56,14 +56,13 @@ function atividade4()
     Rx_i = [1 0 0;0 cos(-i) sin(-i);0 -sin(-i) cos(-i)];
     Rz_w = [cos(-w) sin(-w) 0;-sin(-w) cos(-w) 0;0 0 1];
 
-    Rot = Rz_omega*Rx_i;
-    Rot = Rot*Rz_w;
-
+    Rot = Rz_omega*Rx_i*Rz_w;
+    
     Pos = [X;Y;Z];
     V = [Vx;Vy;Vz];
 
-    Pos_0 = Rot*Pos;
-    V_0 = Rot*V;
+    Pos_0 = Rot*Pos
+    V_0 = Rot*V
 
     t0 = 0;
     tf = 86200;
@@ -73,20 +72,20 @@ function atividade4()
     [~,valores_saida] = ode45( @odefun,[t0 tf],[Pos_0(1) Pos_0(2) Pos_0(3) V_0(1) V_0(2) V_0(3)],options);
     [lon,lat,~] = cart2sph(valores_saida(:,1),valores_saida(:,2),valores_saida(:,3));
     
-    figure(1);
-    plot3(valores_saida(:,1),valores_saida(:,2),valores_saida(:,3),'r');
-    title('Movimento do corpo');
-    xlabel('Posicao em x [km]');
-    ylabel('Posicao em y [km]');
-    zlabel('Posicao em z [km]');
-    grid on;
-    axis([-2 2 -2 2 -1 1]*10^4);
-    
-    figure(2);
-    geoshow('landareas.shp', 'FaceColor', [0.8 1 0.8]);
-    hold on;
-    plot(lon*180/pi, lat*180/pi, '.k');
-    axis equal;
+%     figure(1);
+%     plot3(valores_saida(:,1),valores_saida(:,2),valores_saida(:,3),'r');
+%     title('Movimento do corpo');
+%     xlabel('Posicao em x [km]');
+%     ylabel('Posicao em y [km]');
+%     zlabel('Posicao em z [km]');
+%     grid on;
+%     axis([-2 2 -2 2 -1 1]*10^4);
+%     
+%     figure(2);
+%     geoshow('landareas.shp', 'FaceColor', [0.8 1 0.8]);
+%     hold on;
+%     plot(lon*180/pi, lat*180/pi, '.k');
+%     axis equal;
     
     
 end
@@ -104,8 +103,8 @@ function [G] = odefun(~,I)
     G(2) = I(5);
     G(3) = I(6);
     
-    G(4) = -ut*I(1)/(r^3)+(w^2)*I(1)+2*w*I(5);
-    G(5) = -ut*I(2)/(r^3)+(w^2)*I(2)-2*w*I(4);
+    G(4) = -ut*I(1)/(r^3); %+(w^2)*I(1)+2*w*I(5);
+    G(5) = -ut*I(2)/(r^3); %+(w^2)*I(2)-2*w*I(4);
     G(6) = -ut*I(3)/(r^3);
 
 end

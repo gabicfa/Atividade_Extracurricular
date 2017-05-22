@@ -3,13 +3,13 @@ function atividade7()
     ut = 3.9860040*10^5;
     Rt = 6378.16;
     a = 1.5*Rt;
-    e = 0.1712; 
+    e = 0.1; 
     
-    i = 153.2;
-    omega = 255.3;
-    w = 20.07;
+    i = 30;
+    omega = 45;
+    w = 60;
     
-    i = i*pi/180
+    i = i*pi/180;
     omega = omega*pi/180;
     w = w*pi/180;
     n = sqrt(ut/a^3);
@@ -21,8 +21,10 @@ function atividade7()
     d=[23 6 1962];
     
     Delta_JD = juliano(T, D, t, d);
-
-    M = n*Delta_JD
+    display(Delta_JD)
+    display(n)
+    M = n*Delta_JD;
+    display(M)
 
     E0 = 0;
     iter = 0;
@@ -104,13 +106,13 @@ function [E] = newton(Er,M,e,iter, itermax,es)
         Erold = Er;
         x1 = Erold - e*sin(Erold)-M;
         x2 = 1 - e*cos(Erold);
-        Er = Erold - (x1/x2);
+        Er = Erold - (x1/x2)
         iter = iter + 1;
         if Er ~= 0
             ea = abs((Er - Erold)/Er)*100;
         end
         if ea < es || iter >= itermax
-            E = Er;
+            E = Er
             break;
         end
     end

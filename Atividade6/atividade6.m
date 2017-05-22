@@ -1,5 +1,6 @@
  function atividade6(R, V)
 
+
 r = norm(R);
 v = norm(V);
 vr= sum(V.*R)/r;
@@ -7,9 +8,9 @@ vr= sum(V.*R)/r;
 H = cross(R,V);
 h = norm(H);
 disp('h(km^2/s) = ') 
-disp(h);
+disp(H);
 
-Hz = H(1,3);
+Hz = H(3);
 i = acos(Hz/h);
 i = radtodeg(i);
 disp('i(graus) = ')
@@ -20,13 +21,13 @@ n = norm(N);
 Nx = N(1,1);
 Ny = N(1,2);
 if(Ny>= 0)
-    W = acos(Nx/n);
+    omega = acos(Nx/n);
 else
-    W = 2*pi - acos(Nx/n);
+    omega = 2*pi - acos(Nx/n);
 end
-W = radtodeg(W);
+omega = radtodeg(omega);
 disp('W(graus) = ')
-disp(W)
+disp(omega)
 
 u = 3.9860040*(10^5);
 E = (1/u) * ((v^2-(u/r))*R- (r*vr*V));
@@ -34,10 +35,13 @@ e = norm(E);
 disp('e = ')
 disp(e);
 
-Ez = E(1,3);
+Ez = E(3);
 if Ez>=0
-    w = acos((sum(N.*E))/(n*e));
+    disp('Entrei aqui no primeiro')
+%     w = acos((sum(N.*E))/(n*e));
+    w = acos((dot(N, E))/(n*e));
 else
+    disp('Entrei aqui no segundo')
     w = 2*pi - acos((sum(N.*E))/(n*e));
 end
 w = radtodeg(w);
